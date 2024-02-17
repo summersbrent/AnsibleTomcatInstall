@@ -1,0 +1,13 @@
+- hosts: webserver
+  become: true
+  tasks:
+  - name: Clone git repo
+    git: repo=https://github.com/Sonal0409/DevOpsCodeDemo.git dest=/tmp/myreposonal
+  - name: Build the code
+    command: chdir=/tmp/myreposonal mvn package
+  - name: Copy the war file in current directory
+    copy: src=/tmp/myreposonal/target/addressbook.war dest=/tmp/myreposonal remote_src=yes
+  - name: build the dockerfile into an Image
+    command: chdir=/tmp/myreposonal docker build -t myimagetoday:ansible .
+  - name: run the image
+    command: docker run -d -P myimagetoday:ansible
