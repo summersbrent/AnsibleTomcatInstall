@@ -1,2 +1,2 @@
 [webserver]
-172.31.46.38  ansible_user=labsuser
+172.31.46.38
